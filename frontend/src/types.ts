@@ -1,0 +1,10 @@
+export type Client = { id: number; name: string; email: string; phone: string; bonus_balance: string; created_at: string };
+export type Product = { id: number; title: string; description: string; price: string; collection: string; image_url: string; in_stock: boolean };
+export type Status = 'new' | 'processing' | 'confirmed' | 'shipped' | 'done' | 'cancelled';
+export type Order = { id: number; product: Product; quantity: number; unit_price: string; status: Status; comment: string; created_at: string };
+export type Bonus = { id: number; amount: string; reason: string; created_at: string };
+export const statuses: Record<Status, string> = { new: 'Новая', processing: 'В обработке', confirmed: 'Подтверждена', shipped: 'Отправлена', done: 'Выполнена', cancelled: 'Отменена' };
+export const number = (value: string | number) => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 2 }).format(Number(value));
+export const money = (value: string | number) => `${number(value)} ₽`;
+export const priceLabel = (value: string | number) => Number(value) > 0 ? money(value) : 'Цена уточняется';
+export const date = (value: string) => new Date(value.endsWith('Z') || /[+-]\d\d:\d\d$/.test(value) ? value : value + 'Z').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
